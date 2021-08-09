@@ -21,11 +21,13 @@ func main() {
 	for scanner.Scan() {
 		numStr = scanner.Text()
 	}
+
 	var digits []int
 	for _, v := range numStr {
 		n, _ := strconv.Atoi(string(v))
 		digits = append(digits, n)
 	}
+
 	var largestProduct, temp int
 	adjNum := 13
 	for i := 0; i < len(digits)-adjNum; i++ {
@@ -37,5 +39,6 @@ func main() {
 			largestProduct = temp
 		}
 	}
+
 	fmt.Println(largestProduct)
 }
