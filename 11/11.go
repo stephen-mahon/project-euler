@@ -36,78 +36,63 @@ func main() {
 
 		}
 	}
-	var a, b, c, d int
-	var greatestProduct int
+	squareArray := squares(grid)
+	var maxProduct int
+	for i := range squareArray {
+		if maxAdjacentProduct(squareArray[i]) > maxProduct {
+			maxProduct = maxAdjacentProduct(squareArray[i])
+		}
+	}
+	fmt.Println(maxProduct)
 
-	// This could be much better - lots of redundency (abcd = dcba)
-	for i := 0; i < 20; i++ {
-		for j := 0; j < 20; j++ {
-			// Right
-			if j < 17 {
-				a = grid[i][j]
-				b = grid[i][j+1]
-				c = grid[i][j+2]
-				d = grid[i][j+3]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
-			}
-			// Left
-			if j > 3 {
-				a = grid[i][j-3]
-				b = grid[i][j-2]
-				c = grid[i][j-1]
-				d = grid[i][j]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
-			}
-			// Down
-			if i < 17 {
-				a = grid[i][j]
-				b = grid[i+1][j]
-				c = grid[i+2][j]
-				d = grid[i+3][j]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
-			}
-			// Up
-			if i > 3 {
-				a = grid[i-3][j]
-				b = grid[i-2][j]
-				c = grid[i-1][j]
-				d = grid[i][j]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
-			}
-			// Diagonal Right
-			if i < 17 && j < 17 {
-				a = grid[i][j]
-				b = grid[i+1][j+1]
-				c = grid[i+2][j+2]
-				d = grid[i+3][j+3]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
-			}
-			// Diagonal Left
-			if i > 3 && j > 3 {
-				a = grid[i-3][j-3]
-				b = grid[i-2][j-2]
-				c = grid[i-1][j-1]
-				d = grid[i][j]
-				if a*b*c*d > greatestProduct {
-					greatestProduct = a * b * c * d
-					fmt.Printf("%v %v %v %v %v\n", a, b, c, d, a*b*c*d)
-				}
+}
+
+func maxAdjacentProduct(square []int) int {
+	maxProduct := square[0] * square[5] * square[10] * square[15]
+
+	if square[3]*square[6]*square[9]*square[12] > maxProduct {
+		maxProduct = square[3] * square[6] * square[9] * square[12]
+	}
+
+	for i := range square {
+		if i%4 == 0 {
+			a := i
+			b := i + 1
+			c := i + 2
+			d := i + 3
+
+			if square[a]*square[b]*square[c]*square[d] > maxProduct {
+				maxProduct = square[a] * square[b] * square[c] * square[d]
 			}
 		}
 	}
+
+	for i := 0; i < 4; i++ {
+		a := i
+		b := i + 4
+		c := i + 8
+		d := i + 12
+		if square[a]*square[b]*square[c]*square[d] > maxProduct {
+			maxProduct = square[a] * square[b] * square[c] * square[d]
+		}
+
+	}
+
+	return maxProduct
+}
+
+func squares(grid [][]int) [][]int {
+	squareArray := make([][]int, 17*17)
+	var index int
+	for i := 0; i < len(grid)-3; i++ {
+		for j := 0; j < len(grid[i])-3; j++ {
+			for k := 0; k < 4; k++ {
+				for l := 0; l < 4; l++ {
+					squareArray[index] = append(squareArray[index], grid[i+k][j+l])
+				}
+			}
+			index++
+		}
+	}
+	return squareArray
 }
