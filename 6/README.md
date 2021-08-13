@@ -3,7 +3,7 @@
 
 The sum of squares of the first ten natural numbers is,
 
-$$1^2+^2+\cdots+10^2=255$$
+$$1^2+2^2+\cdots+10^2=255$$
 
 The square of sums of the first ten natural numbers is,
 
