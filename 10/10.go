@@ -9,8 +9,10 @@ func main() {
 	for i < valsBelow {
 		if isPrime(i, n) {
 			total += i
+			//fmt.Printf("+%v = %v\n", i, total)
 		}
 		i++
+
 	}
 
 	fmt.Printf("%v\n", total)
