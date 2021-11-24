@@ -2,8 +2,9 @@ package main
 
 import "fmt"
 
+var i, n int = 1, 2
+
 func main() {
-	i, n := 1, 2
 	var total int
 	valsBelow := 2000000
 	for i < valsBelow {
