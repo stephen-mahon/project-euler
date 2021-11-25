@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-var title = "Project Euler: 13 Large sum"
+var title = "Project Euler\nProblem 13: Large sum"
 
 func main() {
 	fmt.Printf("%s\n\n", title)
