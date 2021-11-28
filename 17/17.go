@@ -39,26 +39,22 @@ var numWords = map[int]string{
 
 func main() {
 	fmt.Println(title)
-	count := flag.Int("count", 20, "number count")
+	count := flag.Int("count", 50, "number count")
 	total := 0
 	for i := 1; i <= *count; i++ {
-		val := 0
-		switch i {
-		case i <= 20:
-			val = toTwenty(i)
-		default:
-			val = 0
+		if i <= 20 {
+			num := toTwenty(i)
+			fmt.Println(num)
+			total += wordCount(num)
 		}
-		total += val
 	}
 	fmt.Println(total)
 }
 
-func toTwenty(i int) int {
-	val := 0
-	for j := range numWords[i] {
-		_ = j
-		val += 1
-	}
-	return val
+func wordCount(s string) int {
+	return len(s)
+}
+
+func toTwenty(i int) string {
+	return numWords[i]
 }
