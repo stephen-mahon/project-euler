@@ -1,37 +1,41 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+	"math"
+)
 
-var i, n int = 1, 2
+var i, sum int = 3, 2
 
 func main() {
-	var total int
-	valsBelow := 2000000
-	for i < valsBelow {
-		if isPrime(i, n) {
-			total += i
-			//fmt.Printf("+%v = %v\n", i, total)
+	vals := flag.Int("v", 10, "vals below")
+	flag.Parse()
+	fmt.Println("The sum of all the primes below", *vals)
+	for i < *vals {
+		if isPrime(int64(i)) {
+			sum += i
 		}
-		i++
+		i += 2
 
 	}
 
-	fmt.Printf("%v\n", total)
+	fmt.Printf("= %v\n", sum)
 }
 
-func isPrime(p, n int) bool {
-
-	if p == 0 || p == 1 {
-		return false
-	}
-
-	if p == n {
+func isPrime(x int64) bool {
+	if x == 2 {
 		return true
 	}
-
-	if p%n == 0 {
+	if x%2 == 0 {
 		return false
 	}
-	n++
-	return isPrime(p, n)
+
+	var i, z int64 = 3, int64(math.Sqrt(float64(x)))
+	for ; i <= z; i += 2 {
+		if x%i == 0 {
+			return false
+		}
+	}
+	return true
 }
